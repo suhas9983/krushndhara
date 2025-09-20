@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <div class="hero-text">
+    <h2>कृष्णधारा — Clean Water, Healthy Life</h2>
+    <p>Sales, installation & service for all major water purifier brands.</p>
+    <a class="cta" href="/products">Shop Purifiers</a>
+    <a class="cta-outline" href="#book">Book Service</a>
+  </div>
+  <div class="hero-image">
+    <img src="/static/img/waterbg.png" alt="water purifier">
+  </div>
+</section>
+
+<section class="featured">
+  <h3>Featured Products</h3>
+  <div class="grid">
+    {% for p in products %}
+    <article class="card">
+      <img src="{{ p.image or '/static/img/waterbg.png' }}" alt="{{ p.name }}">
+      <h4>{{ p.name }}</h4>
+      <p>₹{{ p.price }}</p>
+      <a href="/product/{{ p.id }}" class="btn">View</a>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="book" class="book-service">
+  <h3>Book a Service</h3>
+  <form action="/book-service" method="POST" class="form">
+    <input name="name" placeholder="Your name" required>
+    <input name="phone" placeholder="Phone" required>
+    <input name="email" placeholder="Email">
+    <input name="address" placeholder="Address">
+    <select name="service_type">
+      <option>Installation</option>
+      <option>Routine Service</option>
+      <option>RO Repair</option>
+    </select>
+    <input type="date" name="preferred_date">
+    <textarea name="notes" placeholder="Notes (optional)"></textarea>
+    <button type="submit" class="btn">Submit</button>
+  </form>
+</section>
+{% endblock %}
